@@ -51,7 +51,7 @@ class Value:
 
     def backward(self):
 
-        #topologhical order for child in the graph
+        #topographical arrangement of child in the graph
         topo = []
         visited = set()
         def build_topo(v):
@@ -60,8 +60,33 @@ class Value:
                 for child in v._prev:
                     build_topo(child)
                 topo.append(v)
-        build_topo(self)
+            build_topo(self)
 
         self.grad = 1
         for v in reversed(topo):
             v._backward()
+
+    
+    def __neg__(self):
+        return self * -1
+    
+    def __radd__(self, other):
+        return self + other
+    
+    def __sub__(self, other):
+        return self + (-other)
+    
+    def __rsub__(self,other):
+        return other + (-self)
+    
+    def __rmul__(self, other):
+        return self * other
+    
+    def __rtruediv___(self, other):
+        return other * self **-1
+    
+    def __truediv__(self, other):
+        return self * other **-1
+    
+    def __repr__(self):
+        return f" Value(data={self.data}, grad={self.grad}) "
