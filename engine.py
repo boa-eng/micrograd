@@ -60,7 +60,7 @@ class Value:
                 for child in v._prev:
                     build_topo(child)
                 topo.append(v)
-            build_topo(self)
+        build_topo(self)
 
         self.grad = 1
         for v in reversed(topo):
@@ -82,11 +82,11 @@ class Value:
     def __rmul__(self, other):
         return self * other
     
-    def __rtruediv___(self, other):
+    def __rtruediv__(self, other):
         return other * self **-1
     
     def __truediv__(self, other):
         return self * other **-1
     
     def __repr__(self):
-        return f" Value(data={self.data}, grad={self.grad}) "
+        return f"Value(data={self.data}, grad={self.grad})"
