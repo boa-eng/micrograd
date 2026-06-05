@@ -36,7 +36,7 @@ class Layer(Module):
     
     def __call__(self, x):
         out = [n(x) for n in self.neurons]
-        return[0] if len(out) == 1 else out
+        return out[0] if len(out) == 1 else out
     
     def parameters(self):
         return [p for n in self.neurons for p in n.parameters()]
